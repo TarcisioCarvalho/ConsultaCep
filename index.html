@@ -4,9 +4,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Consulta Cep</title>
 </head>
 <body>
-    
+    <main>
+        <form class="form" data-js="form">
+        <label for="cep">CEP</label>
+        <input type="text" id="cep" data-js="cep" class="cep">
+        <button type="submit" >Consultar CEP</button>
+        </form>
+        <div data-js="status">
+
+        </div>
+        <div data-js="informacoes" class="informacoes">
+        <label for="logradouro">Logradouro</label>
+        <input type="text" id="logradouro" readonly data-js="logradouro">
+        <label for="bairro">Bairro</label>
+        <input type="text" id="bairro" readonly data-js="bairro">
+        <label for="estado">Estado</label>
+        <input type="text" id="estado" readonly data-js="estado">
+        <label for="cidade">Cidade</label>
+        <input type="text" id="Cidade" readonly data-js="Cidade">
+        </div>
+        <script src="./assets/js/main.js"></script>
+    </main>
 </body>
 </html>

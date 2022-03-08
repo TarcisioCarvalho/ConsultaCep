@@ -1,0 +1,36 @@
+body{
+    background-color: rgba(96, 58, 201, 0.466);
+}
+
+.form{
+    display: flex;
+    border: 1px solid red;
+    width: 50%;
+    margin: auto;
+    margin-top: 100px;
+    flex-wrap: wrap;
+}
+
+.cep{
+    width: 70%;
+}
+
+.informacoes{
+    display: flex;
+    width: 50%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+#logradouro{
+    width: 40%;
+}
+#estado{
+    width: 40%;
+}
+#bairro{
+    width: 40%;
+}
+#cidade{
+    width: 40%;
+}
