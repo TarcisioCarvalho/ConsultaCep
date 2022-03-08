@@ -111,23 +111,66 @@
 
     let $form = new DOM('[data-js="form"]');
     let $cep = new DOM('[data-js = "cep"]');
+    let $status = new DOM('[data-js="status"]');
+    let $logradouro = new DOM('[data-js="logradouro"]');
+    let $bairro = new DOM('[data-js="bairro"]');
+    let $cidade = new DOM('[data-js="cidade"]');
+    let $estado = new DOM('[data-js="estado"]');
     console.log($cep.value);
     $form.on('submit',handleSubmitFormCEP);
     let ajax = new XMLHttpRequest();
+
     function handleSubmitFormCEP(event){
         event.preventDefault();
-        ajax.open('GET',`https://ws.apicep.com/cep/${$cep.get()[0].value}.json`);
+        ajax.open('GET',`https://ws.apicep.com/cep/${$cep.get()[0].value.replace(/\D/g,'')}.json`);
         ajax.send();
+        getMessage('loading');
         ajax.addEventListener('readystatechange',handleReadyStateChange);
-
-        
     }
-
     function handleReadyStateChange(){
         if(ajax.readyState ===4 && ajax.status === 200){
-            console.log($cep.get()[0].value);
+            getMessage('ok');
+            fillCEPFields();
+            console.log($cep.get()[0].value.replace(/\D/g,''));
             console.log('popular ', ajax.responseText);
         }
     }
+    function fillCEPFields(){
+        let data = JSON.parse(ajax.responseText);
+        console.log(data);
+        console.log(data.status)
+        console.log(ajax.responseText);
+        console.log(ajax.status);
+        console.log(ajax.readyState);
+        if(data.status === 400){
+            getMessage('error');
+            console.log('erro');
+            data = clearCEP();
+        } 
+        $logradouro.get()[0].value= data.address;
+        $bairro.get()[0].value = data.district;
+        $cidade.get()[0].value = data.city;
+        $estado.get()[0].value = data.state;
+    }
+function clearCEP(){
+    return {
+        address:'',
+        district: '',
+        city: '',
+        state: ''
+    }
+}
+function getMessage(type){
+     let cep = $cep.get()[0].value;
+     console.log(cep);
+
+    let messages ={
+        loading: `Buscando informações para o CEP `+cep,
+        ok:`Endereço referente ao CEP  `+cep ,
+        error: `Não encontramos o endereço para o CEP ` +cep
+    };    
+    $status.get()[0].textContent = messages[type];
+}
+
     console.log($form);
 })(window,document)
